@@ -1,4 +1,4 @@
-# MoveE2eTestTool
+# MoveE2ETestTool
 
 **TODO: Add description**
 

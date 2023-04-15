@@ -1,6 +1,6 @@
-defmodule MoveE2eTestTool do
+defmodule MoveE2ETestTool do
   @moduledoc """
-  Documentation for `MoveE2eTestTool`.
+  Documentation for `MoveE2ETestTool`.
   """
 
   @doc """
@@ -8,7 +8,7 @@ defmodule MoveE2eTestTool do
 
   ## Examples
 
-      iex> MoveE2eTestTool.hello()
+      iex> MoveE2ETestTool.hello()
       :world
 
   """

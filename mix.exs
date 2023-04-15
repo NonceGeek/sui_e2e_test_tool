@@ -1,4 +1,4 @@
-defmodule MoveE2eTestTool.MixProject do
+defmodule MoveE2ETestTool.MixProject do
   use Mix.Project
 
   def project do
@@ -21,7 +21,7 @@ defmodule MoveE2eTestTool.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:web3_aptos_ex, "~> 1.0.6"},
+      {:web3_move_ex, "~> 0.6.0"},
       {:binary, "~> 0.0.5"},
       {:nimble_parsec, "~> 1.2"},
       # {:dep_from_hexpm, "~> 0.3.0"},

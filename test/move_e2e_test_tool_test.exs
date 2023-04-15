@@ -1,8 +1,8 @@
-defmodule MoveE2eTestToolTest do
+defmodule MoveE2ETestToolTest do
   use ExUnit.Case
-  doctest MoveE2eTestTool
+  doctest MoveE2ETestTool
 
   test "greets the world" do
-    assert MoveE2eTestTool.hello() == :world
+    assert MoveE2ETestTool.hello() == :world
   end
 end
