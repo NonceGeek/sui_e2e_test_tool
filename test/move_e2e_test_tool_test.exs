@@ -2,13 +2,31 @@ defmodule MoveE2ETestToolTest do
   use ExUnit.Case
   doctest MoveE2ETestTool
 
+  test "runtime compile" do
+    Code.eval_string("defmodule A do\ndef a do\n1\nend\nend")
+    assert 1 = A.a()
+  end
+
+  test "generate code" do
+    assert 1 = MoveE2ETestTool.CliParser.run("a=1\nassert a=1\n1")
+
+    new_address = "
+        sui client new-address
+        expect = %{cli: :sui_client, cmd: :new_address}
+        assert expect = cmd
+        assert {:ok, %Web3MoveEx.Sui.Account{
+         priv_key_base64: \"AAumH4YpXBOdglwNPalFGbj6btlTwOeAcAJscyfl4A4H\",
+        }} = res"
+    MoveE2ETestTool.CliParser.run(new_address)
+  end
+
   test "parse script" do
     assert [
              %{cli: :sui_client, cmd: :new_address, key_schema: "secp256k1"},
              %{
                cli: :sui_client,
                cmd: :import_address,
-               priv: "AKpjfApmHx8FbjrRRSrUlF6ITigjP8NMS1ip4JdqPp5g"
+               priv: ["AKpjfApmHx8FbjrRRSrUlF6ITigjP8NMS1ip4JdqPp5g"]
              },
              %{cli: :sui_client, cmd: :gas},
              %{
@@ -30,7 +48,8 @@ defmodule MoveE2ETestToolTest do
                :module => "sandwich",
                :package => "0x08204ed92afcfdf9d0f6727a2c7d40db93a059d8",
                :gas_budget => 30000
-             }
+             },
+             %{cli: :code, line: "a=a"}
            ] = MoveE2ETestTool.SuiCliParser.parse_script(script())
   end
 
@@ -38,10 +57,13 @@ defmodule MoveE2ETestToolTest do
     assert %{
              cli: :sui_client,
              cmd: :import_address,
-             priv: "AKpjfApmHx8FbjrRRSrUlF6ITigjP8NMS1ip4JdqPp5g"
+             priv: [
+               "AKpjfApmHx8FbjrRRSrUlF6ITigjP8NMS1ip4JdqPp5g",
+               "AKpjfApmHx8FbjrRRSrUlF6ITigjP8NMS1ip4JdqPp5g"
+             ]
            } =
              MoveE2ETestTool.SuiCliParser.parse_cmd(
-               "sui client import-address AKpjfApmHx8FbjrRRSrUlF6ITigjP8NMS1ip4JdqPp5g"
+               "sui client import-address AKpjfApmHx8FbjrRRSrUlF6ITigjP8NMS1ip4JdqPp5g AKpjfApmHx8FbjrRRSrUlF6ITigjP8NMS1ip4JdqPp5g"
              )
   end
 
@@ -71,6 +93,20 @@ defmodule MoveE2ETestToolTest do
            } = MoveE2ETestTool.SuiCliParser.parse_cmd(line)
   end
 
+  test "sui client transfer-sui" do
+    line =
+      "sui client transfer-sui --to 0x313c133acaf25103aae40544003195e1a3bb7d5b2b11fd4c6ec61af16bcdb968 --sui-coin-object-id 0x3a5f70f0bedb661f1e8bc596e308317edb0bdccc5bc86207b45f01db1aad5ddf --gas-budget 2000"
+
+    assert %{
+             cli: :sui_client,
+             cmd: :transfer_sui,
+             gas_budget: 2000,
+             sui_coin_object_id:
+               "0x3a5f70f0bedb661f1e8bc596e308317edb0bdccc5bc86207b45f01db1aad5ddf",
+             to: "0x313c133acaf25103aae40544003195e1a3bb7d5b2b11fd4c6ec61af16bcdb968"
+           } = MoveE2ETestTool.SuiCliParser.parse_cmd(line)
+  end
+
   def script() do
     "sui client new-address secp256k1
     # 导入一个已有地址
@@ -88,6 +124,7 @@ defmodule MoveE2ETestToolTest do
     # buy_ham
     sui client call --function buy_ham --module sandwich --package 0x08204ed92afcfdf9d0f6727a2c7d40db93a059d8 --args args1 args2 --gas gas_obj --gas-budget 30000
     # check if there is a ham
+    a=a
     #"
   end
 end

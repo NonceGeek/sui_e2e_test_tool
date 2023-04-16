@@ -6,8 +6,11 @@ defmodule MoveE2ETestTool.SuiCliParser do
   package = ascii_string([?_, ?0..?9, ?a..?z, ?A..?Z], min: 1)
   args = ascii_string([?_, ?0..?9, ?a..?z, ?A..?Z], min: 1)
   obj = ascii_string([?_, ?0..?9, ?a..?z, ?A..?Z], min: 1)
-  number =  integer(min: 1, max: 20)
-  call_optional =
+  priv = ascii_string([?/, ?+, ?0..?9, ?a..?z, ?A..?Z], min: 44)
+  number = integer(min: 1, max: 20)
+  address = ascii_string([?0..?9, ?a..?z, ?A..?Z], min: 66)
+
+  call_options =
     choice([
       string("--function")
       |> ignore()
@@ -50,7 +53,7 @@ defmodule MoveE2ETestTool.SuiCliParser do
     string("call")
     |> replace(:call)
     |> unwrap_and_tag(:cmd)
-    |> repeat(space |> concat(call_optional))
+    |> repeat(space |> concat(call_options))
     |> label("call")
 
   gas = string("gas") |> replace(:gas) |> unwrap_and_tag(:cmd)
@@ -59,9 +62,19 @@ defmodule MoveE2ETestTool.SuiCliParser do
     choice([string("import_address"), string("import-address")])
     |> replace(:import_address)
     |> unwrap_and_tag(:cmd)
-    |> concat(space)
-    |> concat(obj |> unwrap_and_tag(:priv))
+    |> concat(repeat(space |> concat(priv)) |> tag(:priv))
     |> label("import_address")
+
+    transfer_sui_options = choice([
+      string("--to")  |> ignore() |> concat(space) |> concat(address) |> unwrap_and_tag(:to),
+      string("--sui-coin-object-id") |> ignore() |> concat(space) |> concat(obj) |> unwrap_and_tag(:sui_coin_object_id),
+      string("--gas-budget") |> ignore() |> concat(space) |> concat(number) |> unwrap_and_tag(:gas_budget)
+    ])
+
+    transfer_sui = choice([string("transfer-sui"), string("transfer_sui")]) |>
+    replace(:transfer_sui) |> unwrap_and_tag(:cmd)
+    |> repeat( space |> concat(transfer_sui_options))
+    |> label("transfer_sui")
 
   key_schema =
     choice([
@@ -91,7 +104,8 @@ defmodule MoveE2ETestTool.SuiCliParser do
       new_address,
       call,
       gas,
-      import_address
+      import_address,
+      transfer_sui
     ])
     |> label("sui_client_signal")
 
@@ -102,13 +116,13 @@ defmodule MoveE2ETestTool.SuiCliParser do
     string("--name")
     |> ignore(space)
     |> concat(ascii_string([?_, ?0..?9, ?a..?z, ?A..?Z], min: 0))
-
+  code =
   defparsec(
     :cmd,
-    choice([
-      sui_client_signal,
-      assert_signal
-    ])
+#    choice([
+      sui_client_signal
+#      assert_signal
+#    ])
   )
 
   def parse_script(str) do
@@ -122,7 +136,7 @@ defmodule MoveE2ETestTool.SuiCliParser do
     false
   end
 
-  def ignore_comment_line("#" <> line) do
+  def ignore_comment_line("#" <> _) do
     false
   end
 
@@ -133,6 +147,9 @@ defmodule MoveE2ETestTool.SuiCliParser do
   def parse_cmd(cmd_str) do
     with {:ok, result, _, _, _, _} <- cmd(cmd_str) do
       result |> Enum.into(%{})
+      else
+      {:error, "expected sui_client_signal", line, %{}, {1, 0}, 0} ->
+      %{cli: :code, line: line}
     end
   end
 end
