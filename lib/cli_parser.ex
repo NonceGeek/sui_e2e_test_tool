@@ -1,15 +1,20 @@
 defmodule MoveE2ETestTool.CliParser do
   alias Web3MoveEx.Sui
   alias MoveE2ETestTool.SuiCliParser
-
   @moduledoc """
   """
-  def run(script) do
-    code = SuiCliParser.parse_script_to_code(script)
-    :ok = :file.write_file("tmp.ex", code)
+  def main(["--file", file]) do
+    {:ok, script} = File.read(file)
+    {:ok, _} = Application.ensure_all_started(:web3_move_ex)
+    run(script, file)
+  end
+  def run(script, file \\ "tmp.script") do
+    m = file_to_module(file)
+    code = SuiCliParser.parse_script_to_code(script, m)
+    :ok = :file.write_file(:filename.rootname(file) <> ".ex", code)
     Code.eval_string(code)
     {:ok, agent} = start()
-    MoveE2ETestTool.Tmp.run(agent)
+    apply(String.to_atom("Elixir.MoveE2ETestTool." <> m), :run, [agent])
   end
 
   def start() do
@@ -23,22 +28,21 @@ defmodule MoveE2ETestTool.CliParser do
 
   def cmd(agent, %{"cli" => "sui_client", "cmd" => "new-address", "args" => [key_schema | _]}) do
     {:ok, acct} = Web3MoveEx.Sui.gen_acct(String.to_atom(key_schema))
-
-    {:ok, acct} =
-      {:ok,
-       %Web3MoveEx.Sui.Account{
-         sui_address:
-           <<173, 247, 138, 113, 25, 16, 185, 209, 222, 3, 2, 38, 31, 18, 48, 156, 136, 2, 245,
-             243, 0, 205, 170, 16, 200, 119, 17, 120, 234, 150, 208, 145>>,
-         sui_address_hex: "0xadf78a711910b9d1de0302261f12309c8802f5f300cdaa10c8771178ea96d091",
-         priv_key:
-           <<0, 11, 166, 31, 134, 41, 92, 19, 157, 130, 92, 13, 61, 169, 69, 25, 184, 250, 110,
-             217, 83, 192, 231, 128, 112, 2, 108, 115, 39, 229, 224, 14, 7>>,
-         priv_key_base64: "AAumH4YpXBOdglwNPalFGbj6btlTwOeAcAJscyfl4A4H",
-         key_schema: "ed25519",
-         phrase:
-           "city record reject glow similar misery finger tongue wage diesel high prevent end gadget pill tiny shine muffin prefer coffee custom shell quantum office"
-       }}
+#    {:ok, acct} =
+#      {:ok,
+#       %Web3MoveEx.Sui.Account{
+#         sui_address:
+#           <<173, 247, 138, 113, 25, 16, 185, 209, 222, 3, 2, 38, 31, 18, 48, 156, 136, 2, 245,
+#             243, 0, 205, 170, 16, 200, 119, 17, 120, 234, 150, 208, 145>>,
+#         sui_address_hex: "0xadf78a711910b9d1de0302261f12309c8802f5f300cdaa10c8771178ea96d091",
+#         priv_key:
+#           <<0, 11, 166, 31, 134, 41, 92, 19, 157, 130, 92, 13, 61, 169, 69, 25, 184, 250, 110,
+#             217, 83, 192, 231, 128, 112, 2, 108, 115, 39, 229, 224, 14, 7>>,
+#         priv_key_base64: "AAumH4YpXBOdglwNPalFGbj6btlTwOeAcAJscyfl4A4H",
+#         key_schema: "ed25519",
+#         phrase:
+#           "city record reject glow similar misery finger tongue wage diesel high prevent end gadget pill tiny shine muffin prefer coffee custom shell quantum office"
+#       }}
 
     Agent.update(agent, fn dict ->
       Map.put(dict, :acct, acct)
@@ -99,4 +103,30 @@ defmodule MoveE2ETestTool.CliParser do
     %{client: client, acct: acct} = Agent.get(agent, fn state -> state end)
     Sui.unsafe_transfer(client, acct, sui_coin_object_id, gas_budget, to)
   end
+  def cmd(agent, %{
+  "cli" => "sui_client",
+  "cmd" => "import-address",
+  "args" => args
+  }) do
+   addresses = args |> Enum.map(fn x -> Web3MoveEx.Sui.Account.from(x)  end)
+   Agent.update(agent, fn dict ->
+      Map.put(dict, :addresses, addresses)
+      Map.put(dict, :acc, :erlang.hd(addresses))
+    end)
+  end
+  defp file_to_module(file) when is_binary(file) do
+    name = :filename.rootname(file)
+     [a|rest] = name1 = to_charlist(name)
+     String.upcase(List.to_string([a])) <> change_module(rest, "")
+    end
+
+  defp change_module([], acc) do
+    acc
+    end
+    defp change_module([?_, f| rest], acc) do
+        change_module(rest, acc <> String.upcase(List.to_string([f])))
+    end
+    defp change_module([f| rest], acc) do
+    change_module(rest, acc <> List.to_string([f]))
+    end
 end

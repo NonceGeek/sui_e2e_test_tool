@@ -9,12 +9,14 @@ defmodule MoveE2ETestToolTest do
     test "generate code" do
         assert 1 = MoveE2ETestTool.CliParser.run("a=1\nassert a=1\n1")
         new_address = "
+        LOG=DEBUG
         sui client new-address
         expect = %{cli: :sui_client, cmd: :new_address}
         assert expect = cmd
-        assert {:ok, %Web3MoveEx.Sui.Account{
-         priv_key_base64: \"AAumH4YpXBOdglwNPalFGbj6btlTwOeAcAJscyfl4A4H\",
+        {:ok, %Web3MoveEx.Sui.Account{
+         priv_key_base64: _,
         }} = res
+        IO.inspect(res)
         :ok
         "
         assert :ok == MoveE2ETestTool.CliParser.run(new_address)

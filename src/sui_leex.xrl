@@ -9,16 +9,20 @@ Atom = [a-z][0-9a-zA-Z_]*
 SuiLine = {Space}sui[\s]+client.+
 Comment = {Space}#.+
 Code = .*
+Debug = {Space}LOG{Space}={Space}DEBUG
 Rules.
 
-{SuiLine} : {token,{sui, TokenLine, parse_sui(TokenChars)}}.
 {Comment} : {token, {comment, TokenLine, parse_comment(TokenChars)}}.
+{Debug} : {token, {debug, TokenLine, parse_debug(TokenChars)}}.
+{SuiLine} : {token,{sui, TokenLine, parse_sui(TokenChars)}}.
 {NoneLine} : skip_token.
 %{Return} : {token, {'\n', TokenLine, :nil}}.
 {Return} : skip_token.
 {Code} : {token, {code, TokenLine, parse_code(TokenChars)}}.
 
 Erlang code.
+parse_debug(_) ->
+#{<<"cli">> => <<"log">>, <<"cmd">> => <<"debug">>}.
 parse_comment(CommentLine) ->
     #{<<"cli">> => <<"comment">>, <<"line">> => unicode:characters_to_binary(CommentLine)}.
 parse_code(CodeLine) ->
