@@ -6,58 +6,69 @@ defmodule MoveE2ETestToolTest do
     Code.eval_string("defmodule A do\ndef a do\n1\nend\nend")
     assert 1 = A.a()
   end
-
-  test "generate code" do
-    assert 1 = MoveE2ETestTool.CliParser.run("a=1\nassert a=1\n1")
-
-    new_address = "
+    test "generate code" do
+        assert 1 = MoveE2ETestTool.CliParser.run("a=1\nassert a=1\n1")
+        new_address = "
         sui client new-address
         expect = %{cli: :sui_client, cmd: :new_address}
         assert expect = cmd
         assert {:ok, %Web3MoveEx.Sui.Account{
          priv_key_base64: \"AAumH4YpXBOdglwNPalFGbj6btlTwOeAcAJscyfl4A4H\",
-        }} = res"
-    MoveE2ETestTool.CliParser.run(new_address)
-  end
+        }} = res
+        :ok
+        "
+        assert :ok == MoveE2ETestTool.CliParser.run(new_address)
+   end
 
   test "parse script" do
     assert [
-             %{cli: :sui_client, cmd: :new_address, key_schema: "secp256k1"},
+             %{cli: :sui_client, args: ["secp256k1"], cmd: :"new-address"},
+             %{cli: :comment, line: "    # 导入一个已有地址"},
+             %{cli: :comment, line: "    # 执行 ex 特有的 script"},
              %{
+               args: ["AKpjfApmHx8FbjrRRSrUlF6ITigjP8NMS1ip4JdqPp5g"],
                cli: :sui_client,
-               cmd: :import_address,
-               priv: ["AKpjfApmHx8FbjrRRSrUlF6ITigjP8NMS1ip4JdqPp5g"]
+               cmd: :"import-address"
              },
+             %{cli: :comment, line: "    # ex_script: set contract [contract_addr_str]"},
+             %{cli: :comment, line: "    # 查看已有地址的 gas 费用"},
              %{cli: :sui_client, cmd: :gas},
+             %{cli: :comment, line: "    # buy_bread"},
              %{
-               :args => ["args1", "args2"],
-               :cli => :sui_client,
-               :cmd => :call,
-               :function => "buy_bread",
-               :gas => "gas_obj",
-               :module => "sandwich",
-               :package => "0x08204ed92afcfdf9d0f6727a2c7d40db93a059d8",
-               :gas_budget => 30000
+               args: ["args1", "args2"],
+               cli: :sui_client,
+               cmd: :call,
+               function: ["buy_bread"],
+               gas: ["gas_obj"],
+               "gas-budget": ["30000"],
+               module: ["sandwich"],
+               package: ["0x08204ed92afcfdf9d0f6727a2c7d40db93a059d8"]
              },
+             %{cli: :comment, line: "    # check if there is a bread"},
+             %{cli: :comment, line: "    # // TODO"},
+             %{cli: :comment, line: "    # buy_ham"},
              %{
-               :args => ["args1", "args2"],
-               :cli => :sui_client,
-               :cmd => :call,
-               :function => "buy_ham",
-               :gas => "gas_obj",
-               :module => "sandwich",
-               :package => "0x08204ed92afcfdf9d0f6727a2c7d40db93a059d8",
-               :gas_budget => 30000
+               args: ["args1", "args2"],
+               cli: :sui_client,
+               cmd: :call,
+               function: ["buy_ham"],
+               gas: ["gas_obj"],
+               "gas-budget": ["30000"],
+               module: ["sandwich"],
+               package: ["0x08204ed92afcfdf9d0f6727a2c7d40db93a059d8"]
              },
-             %{cli: :code, line: "a=a"}
-           ] = MoveE2ETestTool.SuiCliParser.parse_script(script())
+             %{cli: :comment, line: "    # check if there is a ham"},
+             %{cli: :code, line: "    a=a"},
+             %{cli: :code, line: "    #"}
+           ] =
+             MoveE2ETestTool.SuiCliParser.parse_script_to_clis(script())
   end
 
   test "sui client import_address" do
     assert %{
              cli: :sui_client,
-             cmd: :import_address,
-             priv: [
+             cmd: :"import-address",
+             args: [
                "AKpjfApmHx8FbjrRRSrUlF6ITigjP8NMS1ip4JdqPp5g",
                "AKpjfApmHx8FbjrRRSrUlF6ITigjP8NMS1ip4JdqPp5g"
              ]
@@ -65,16 +76,6 @@ defmodule MoveE2ETestToolTest do
              MoveE2ETestTool.SuiCliParser.parse_cmd(
                "sui client import-address AKpjfApmHx8FbjrRRSrUlF6ITigjP8NMS1ip4JdqPp5g AKpjfApmHx8FbjrRRSrUlF6ITigjP8NMS1ip4JdqPp5g"
              )
-  end
-
-  test "sui client gas" do
-    assert %{cli: :sui_client, cmd: :gas} =
-             MoveE2ETestTool.SuiCliParser.parse_cmd("sui client gas")
-  end
-
-  test "sui client new-address" do
-    assert %{cli: :sui_client, cmd: :new_address, key_schema: "ed25519"} =
-             MoveE2ETestTool.SuiCliParser.parse_cmd("sui client new-address ed25519")
   end
 
   test "sui client call" do
@@ -85,11 +86,11 @@ defmodule MoveE2ETestToolTest do
              :args => ["args1", "args2"],
              :cli => :sui_client,
              :cmd => :call,
-             :function => "buy_ham",
-             :module => "sandwich",
-             :package => "0x08204ed92afcfdf9d0f6727a2c7d40db93a059d8",
-             :gas => "gas_obj",
-             :gas_budget => 30000
+             :function => ["buy_ham"],
+             :module => ["sandwich"],
+             :package => ["0x08204ed92afcfdf9d0f6727a2c7d40db93a059d8"],
+             :gas => ["gas_obj"],
+             :"gas-budget" => ["30000"]
            } = MoveE2ETestTool.SuiCliParser.parse_cmd(line)
   end
 
@@ -99,11 +100,12 @@ defmodule MoveE2ETestToolTest do
 
     assert %{
              cli: :sui_client,
-             cmd: :transfer_sui,
-             gas_budget: 2000,
-             sui_coin_object_id:
-               "0x3a5f70f0bedb661f1e8bc596e308317edb0bdccc5bc86207b45f01db1aad5ddf",
-             to: "0x313c133acaf25103aae40544003195e1a3bb7d5b2b11fd4c6ec61af16bcdb968"
+             cmd: :"transfer-sui",
+             "gas-budget": ["2000"],
+             "sui-coin-object-id": [
+               "0x3a5f70f0bedb661f1e8bc596e308317edb0bdccc5bc86207b45f01db1aad5ddf"
+             ],
+             to: ["0x313c133acaf25103aae40544003195e1a3bb7d5b2b11fd4c6ec61af16bcdb968"]
            } = MoveE2ETestTool.SuiCliParser.parse_cmd(line)
   end
 
