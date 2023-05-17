@@ -24,3 +24,7 @@ move_e2e_test_tool-*.tar
 
 # Temporary files, for example, from tests.
 /tmp/
+/src/sui_leex.erl
+/src/sui_yecc.erl
+tmp.ex
+sui_client.ex
