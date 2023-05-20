@@ -58,7 +58,8 @@ defmodule MoveE2eTestTool.MixProject do
       {:gettext, "~> 0.20"},
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.5"},
-      {:petal_components, "~> 1.0"}
+      {:petal_components, "~> 1.0"},
+      {:sui, git: "https://github.com/yangcancai/sui.git", branch: "main", override: true}
     ]
   end
 
