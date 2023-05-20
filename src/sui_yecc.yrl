@@ -29,7 +29,13 @@ cmd(#{<<"cli">> := <<"sui_client">>} = SuiClient) ->
   io_lib:format("cmd=~p\nres=MoveE2ETestTool.CliParser.cmd(agent, cmd)\nignore_warn(res)\ndebug(cmd, res)",[SuiClient]);
 cmd(#{<<"cli">> := <<"code">>, <<"line">> := Line}) ->
   io_lib:format("~ts",[Line]);
-cmd(#{<<"cli">> := <<"comment">>, <<"line">> := Line}) ->
-  Line.
+cmd(#{<<"cli">> := <<"comment">>, <<"line">> := <<"# ex-script: set-network testnet", _S/binary>>} = Comment) ->
+  io_lib:format("cmd=~p\nres=MoveE2ETestTool.CliParser.cmd(agent, cmd)\nignore_warn(res)\ndebug(cmd, res)",[Comment]);
+cmd(#{<<"cli">> := <<"comment">>, <<"line">> := <<"# ex-script: sleep 2s", _S/binary>>} = Comment) ->
+  io_lib:format("cmd=~p\nres=MoveE2ETestTool.CliParser.cmd(agent, cmd)\nignore_warn(res)\ndebug(cmd, res)",[Comment]);
+cmd(#{<<"cli">> := <<"comment">>, <<"line">> := <<"# ex-script: ", S/binary>>} = Comment) ->
+  io_lib:format("~ts",[S]);
+cmd(#{<<"cli">> := <<"comment">>, <<"line">> := Line} = Comment) ->
+  io_lib:format("cmd=~p\nres=MoveE2ETestTool.CliParser.cmd(agent, cmd)\nignore_warn(res)\ndebug(cmd, res)",[Comment]).
 
 

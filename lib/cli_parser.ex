@@ -13,13 +13,13 @@ defmodule MoveE2ETestTool.CliParser do
     code = SuiCliParser.parse_script_to_code(script, m)
     :ok = :file.write_file(:filename.rootname(file) <> ".ex", code)
     Code.eval_string(code)
-    {:ok, agent} = start()
+    {:ok, agent} = start(:devnet)
     apply(String.to_atom("Elixir.MoveE2ETestTool." <> m), :run, [agent])
   end
 
-  def start() do
-    {:ok, client} = Sui.RPC.connect()
-    Agent.start_link(fn -> %{client: client} end)
+  def start(network_type) when is_atom(network_type) do
+    {:ok, client} = Sui.RPC.connect(network_type)
+    Agent.start_link(fn -> %{client: client, network: network_type} end)
   end
 
   def start(client) do
@@ -106,13 +106,41 @@ defmodule MoveE2ETestTool.CliParser do
   def cmd(agent, %{
   "cli" => "sui_client",
   "cmd" => "import-address",
-  "args" => args
+  "args" => [address, "--profile", name]
   }) do
-   addresses = args |> Enum.map(fn x -> Web3MoveEx.Sui.Account.from(x)  end)
+   addresses = [address] |> Enum.map(fn x -> Web3MoveEx.Sui.Account.from(x)  end)
    Agent.update(agent, fn dict ->
-      Map.put(dict, :addresses, addresses)
+      new_dict=Map.put(dict, :addresses, addresses)
       Map.put(dict, :acc, :erlang.hd(addresses))
+      Map.put(dict, :profile, name)
     end)
+  end
+  def cmd(agent, %{"cli" => "comment", "line" => "# ex-script: set-network testnet"}) do
+    Agent.update(agent, fn state ->
+         {:ok, client} = Sui.RPC.connect(:testnet)
+          state1=Map.put(state, :client, client)
+          Map.put(state1, :network, :testnet)
+    end)
+  end
+  def cmd(agent, %{"cli" => "comment", "line" => "# ex-script: set-network devnet"}) do
+    Agent.update(agent, fn state ->
+         {:ok, client} = Sui.RPC.connect(:devnet)
+         state1 = Map.put(state, :client, client)
+         Map.put(state1, :network, :devnet)
+    end)
+  end
+  def cmd(agent, %{"cli" => "comment", "line" => "# ex-script: set-network mainnet"}) do
+    Agent.update(agent, fn state ->
+         {:ok, client} = Sui.RPC.connect(:mainnet)
+         state1 = Map.put(state, :client, client)
+         Map.put(state1, :network, :mainnet)
+    end)
+  end
+  def cmd(agent, %{"cli" => "comment", "line" => "# ex-script: sleep 2s"}) do
+    :timer.sleep(2000)
+  end
+  def cmd(agent, %{"cli" => "comment", "line" => line}) do
+
   end
   defp file_to_module(file) when is_binary(file) do
     name = :filename.rootname(file)

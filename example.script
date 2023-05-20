@@ -1,0 +1,29 @@
+# -[acct operations]-
+
+# ex-script: set-network testnet
+# init account.
+sui client import-address AAumH4YpXBOdglwNPalFGbj6btlTwOeAcAJscyfl4A4H --profile leeduckgo
+# aptos init --priv 0xb46737230c6037ac1c5efcf67c1ba039947eaf354d3960851df55ed3abd2eb9c --profile leeduckgo
+
+sui client gas --profile leeduckgo
+
+# -[contract test]-
+# contract addr: 0xcd6e69ff3c22db037584f b1650f7ca75df721fb0143690fb33f2f3bd0c1fe5bd
+# network: testnet
+# contract name: hello_blockchain
+
+# run the set message
+# aptos move run --function-id 0xcd6e69ff3c22db037584fb1650f7ca75df721fb0143690fb33f2f3bd0c1fe5bd::message::set_message --profile leeduckgo --args string:Hello_World
+sui client call --function transfer --module sui --package 0x2 --args 0x1b9c00a93345ce5f12bea9ffe04748d6696c30631735193aea95b8f9082c1062 0x33e3e1d64f76b71a80ec4f332f4d1a6742c537f2bb32473b01b1dcb1caac9427 --gas-budget 1000
+aptos account list --query resources --profile leeduckgo
+# ex-script: sleep 2s
+# ↓ this cmd should return true ↓
+# default profile
+# ex-script: assert "message" of leeduckgo in "0xcd6e69ff3c22db037584fb1650f7ca75df721fb0143690fb33f2f3bd0c1fe5bd::message::MessageHolder" == "Hello_World"
+
+aptos move run --function-id 0xcd6e69ff3c22db037584fb1650f7ca75df721fb0143690fb33f2f3bd0c1fe5bd::message::set_message  --profile leeduckgo --args string:Hello_Aptos 
+# ex-script: sleep 2s
+# ↓ this cmd should return false ↓
+# default profile
+# ex-script: assert "message" of leeduckgo in "0xcd6e69ff3c22db037584fb1650f7ca75df721fb0143690fb33f2f3bd0c1fe5bd::message::MessageHolder" == "Hello_World"
+
