@@ -1,0 +1,27 @@
+<component name="libraryTable">
+  <library name="exbase58" type="mix">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/_build/dev/lib/exbase58/ebin" />
+      <root url="file://$PROJECT_DIR$/_build/dev/lib/exbase58/ebin" />
+      <root url="file://$PROJECT_DIR$/_build/dev/lib/exbase58/ebin" />
+      <root url="file://$PROJECT_DIR$/_build/dev/lib/exbase58/ebin" />
+      <root url="file://$PROJECT_DIR$/_build/dev/lib/exbase58/ebin" />
+      <root url="file://$PROJECT_DIR$/_build/dev/lib/exbase58/ebin" />
+      <root url="file://$PROJECT_DIR$/_build/dev/lib/exbase58/ebin" />
+      <root url="file://$PROJECT_DIR$/_build/dev/lib/exbase58/ebin" />
+      <root url="file://$PROJECT_DIR$/_build/dev/lib/exbase58/ebin" />
+      <root url="file://$PROJECT_DIR$/_build/dev/lib/exbase58/ebin" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/deps/exbase58/lib" />
+      <root url="file://$PROJECT_DIR$/deps/exbase58/lib" />
+      <root url="file://$PROJECT_DIR$/deps/exbase58/lib" />
+      <root url="file://$PROJECT_DIR$/deps/exbase58/lib" />
+      <root url="file://$PROJECT_DIR$/deps/exbase58/lib" />
+      <root url="file://$PROJECT_DIR$/deps/exbase58/lib" />
+      <root url="file://$PROJECT_DIR$/deps/exbase58/lib" />
+      <root url="file://$PROJECT_DIR$/deps/exbase58/lib" />
+    </SOURCES>
+  </library>
+</component>

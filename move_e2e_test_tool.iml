@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="ELIXIR_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/_build/test/lib/mimerl" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/test/lib/metrics" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/test/lib/exbase58" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/test/lib/parse_trans" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/test/lib/nimble_parsec" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/test/lib/sui" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/test/lib/ex_struct_translator" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/test/lib/tesla" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/test/lib/mime" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/test/lib/hackney" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/test/lib/bcs" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/test/lib/certifi" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/test/lib/json" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/test/lib/poison" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/test/lib/httpoison" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/test/lib/web3_aptos_ex" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/test/lib/ssl_verify_fun" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/test/lib/ecto" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/test/lib/binary" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/test/lib/jason" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/test/lib/telemetry" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/test/lib/decimal" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/test/lib/web3_move_ex" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/test/lib/idna" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/test/lib/unicode_util_compat" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/mimerl" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/metrics" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/exbase58" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/parse_trans" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/nimble_parsec" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/unicode_util_compat" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/ex_struct_translator" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/tesla" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/sui" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/mime" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/hackney" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/bcs" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/certifi" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/json" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/poison" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/httpoison" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/web3_aptos_ex" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/ssl_verify_fun" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/ecto" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/binary" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/jason" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/telemetry" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/decimal" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/web3_move_ex" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/idna" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/ex_unit_release" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/test/lib/ex_unit_release" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/nimble_options" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/hpax" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/ranch" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/file_system" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/nimble_pool" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/expo" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/mint" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/plug" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/finch" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/cowboy" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/cowlib" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/swoosh" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/castore" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/esbuild" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/gettext" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/phoenix" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/websock" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/ecto_sql" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/postgrex" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/tailwind" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/heroicons" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/plug_cowboy" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/plug_crypto" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/phoenix_ecto" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/phoenix_html" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/db_connection" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/phoenix_pubsub" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/websock_adapter" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/cowboy_telemetry" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/petal_components" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/phoenix_template" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/telemetry_poller" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/phoenix_live_view" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/telemetry_metrics" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/phoenix_live_reload" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/phoenix_live_dashboard" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="web3_move_ex" level="project" />
+    <orderEntry type="library" name="binary" level="project" />
+    <orderEntry type="library" name="nimble_parsec" level="project" />
+    <orderEntry type="library" name="httpoison" level="project" />
+    <orderEntry type="library" name="poison" level="project" />
+    <orderEntry type="library" name="jason" level="project" />
+    <orderEntry type="library" name="json" level="project" />
+    <orderEntry type="library" name="mox" level="project" />
+    <orderEntry type="library" name="ex_struct_translator" level="project" />
+    <orderEntry type="library" name="ex_doc" level="project" />
+    <orderEntry type="library" name="earmark" level="project" />
+    <orderEntry type="library" name="credo" level="project" />
+    <orderEntry type="library" name="bcs" level="project" />
+    <orderEntry type="library" name="tesla" level="project" />
+    <orderEntry type="library" name="hackney" level="project" />
+    <orderEntry type="library" name="sui" level="project" />
+    <orderEntry type="library" name="dialyxir" level="project" />
+    <orderEntry type="library" name="exbase58" level="project" />
+    <orderEntry type="library" name="web3_aptos_ex" level="project" />
+    <orderEntry type="library" name="mimic" level="project" />
+    <orderEntry type="library" name="httparrot" level="project" />
+    <orderEntry type="library" name="benchfella" level="project" />
+    <orderEntry type="library" name="jiffy" level="project" />
+    <orderEntry type="library" name="exjsx" level="project" />
+    <orderEntry type="library" name="jazz" level="project" />
+    <orderEntry type="library" name="dialyzex" level="project" />
+    <orderEntry type="library" name="excoveralls" level="project" />
+    <orderEntry type="library" name="ecto" level="project" />
+    <orderEntry type="library" name="mime" level="project" />
+    <orderEntry type="library" name="ibrowse" level="project" />
+    <orderEntry type="library" name="gun" level="project" />
+    <orderEntry type="library" name="finch" level="project" />
+    <orderEntry type="library" name="castore" level="project" />
+    <orderEntry type="library" name="mint" level="project" />
+    <orderEntry type="library" name="msgpax" level="project" />
+    <orderEntry type="library" name="fuse" level="project" />
+    <orderEntry type="library" name="telemetry" level="project" />
+    <orderEntry type="library" name="opentelemetry_process_propagator" level="project" />
+    <orderEntry type="library" name="mix_test_watch" level="project" />
+    <orderEntry type="library" name="inch_ex" level="project" />
+    <orderEntry type="library" name="cowlib" level="project" />
+    <orderEntry type="library" name="ranch" level="project" />
+    <orderEntry type="library" name="basefiftyeight" level="project" />
+    <orderEntry type="library" name="stream_data" level="project" />
+    <orderEntry type="library" name="rename_project" level="project" />
+    <orderEntry type="library" name="decimal" level="project" />
+    <orderEntry type="library" name="ex_unit_release" level="project" />
+    <orderEntry type="library" name="phoenix" level="project" />
+    <orderEntry type="library" name="phoenix_ecto" level="project" />
+    <orderEntry type="library" name="ecto_sql" level="project" />
+    <orderEntry type="library" name="postgrex" level="project" />
+    <orderEntry type="library" name="phoenix_html" level="project" />
+    <orderEntry type="library" name="phoenix_live_reload" level="project" />
+    <orderEntry type="library" name="phoenix_live_view" level="project" />
+    <orderEntry type="library" name="floki" level="project" />
+    <orderEntry type="library" name="phoenix_live_dashboard" level="project" />
+    <orderEntry type="library" name="esbuild" level="project" />
+    <orderEntry type="library" name="tailwind" level="project" />
+    <orderEntry type="library" name="swoosh" level="project" />
+    <orderEntry type="library" name="telemetry_metrics" level="project" />
+    <orderEntry type="library" name="telemetry_poller" level="project" />
+    <orderEntry type="library" name="gettext" level="project" />
+    <orderEntry type="library" name="plug_cowboy" level="project" />
+    <orderEntry type="library" name="petal_components" level="project" />
+    <orderEntry type="library" name="web3_move_ex" level="project" />
+    <orderEntry type="library" name="binary" level="project" />
+    <orderEntry type="library" name="nimble_parsec" level="project" />
+    <orderEntry type="library" name="ex_unit_release" level="project" />
+    <orderEntry type="library" name="jason" level="project" />
+    <orderEntry type="library" name="telemetry" level="project" />
+    <orderEntry type="library" name="ecto" level="project" />
+    <orderEntry type="library" name="plug" level="project" />
+    <orderEntry type="library" name="plug_crypto" level="project" />
+    <orderEntry type="library" name="phoenix_pubsub" level="project" />
+    <orderEntry type="library" name="phoenix_view" level="project" />
+    <orderEntry type="library" name="phoenix_template" level="project" />
+    <orderEntry type="library" name="websock_adapter" level="project" />
+    <orderEntry type="library" name="makeup_eex" level="project" />
+    <orderEntry type="library" name="makeup_elixir" level="project" />
+    <orderEntry type="library" name="phx_new" level="project" />
+    <orderEntry type="library" name="mint_web_socket" level="project" />
+    <orderEntry type="library" name="db_connection" level="project" />
+    <orderEntry type="library" name="myxql" level="project" />
+    <orderEntry type="library" name="tds" level="project" />
+    <orderEntry type="library" name="benchee" level="project" />
+    <orderEntry type="library" name="benchee_json" level="project" />
+    <orderEntry type="library" name="table" level="project" />
+    <orderEntry type="library" name="file_system" level="project" />
+    <orderEntry type="library" name="html_entities" level="project" />
+    <orderEntry type="library" name="html5ever" level="project" />
+    <orderEntry type="library" name="fast_html" level="project" />
+    <orderEntry type="library" name="ecto_psql_extras" level="project" />
+    <orderEntry type="library" name="ecto_mysql_extras" level="project" />
+    <orderEntry type="library" name="circular_buffer" level="project" />
+    <orderEntry type="library" name="dart_sass" level="project" />
+    <orderEntry type="library" name="mail" level="project" />
+    <orderEntry type="library" name="gen_smtp" level="project" />
+    <orderEntry type="library" name="cowboy" level="project" />
+    <orderEntry type="library" name="ex_aws" level="project" />
+    <orderEntry type="library" name="bypass" level="project" />
+    <orderEntry type="library" name="nimble_pool" level="project" />
+    <orderEntry type="library" name="nimble_options" level="project" />
+    <orderEntry type="library" name="x509" level="project" />
+    <orderEntry type="library" name="expo" level="project" />
+    <orderEntry type="library" name="cowboy_telemetry" level="project" />
+    <orderEntry type="library" name="kadabra" level="project" />
+    <orderEntry type="library" name="heroicons" level="project" />
+    <orderEntry type="library" name="websock" level="project" />
+    <orderEntry type="library" name="bandit" level="project" />
+    <orderEntry type="library" name="hpax" level="project" />
+    <orderEntry type="library" name="ssl_verify_fun" level="project" />
+    <orderEntry type="library" name="hpack" level="project" />
+  </component>
+</module>

@@ -1,0 +1,35 @@
+<component name="libraryTable">
+  <library name="petal_components" type="mix">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/_build/dev/lib/petal_components/ebin" />
+      <root url="file://$PROJECT_DIR$/_build/dev/lib/petal_components/ebin" />
+      <root url="file://$PROJECT_DIR$/_build/dev/lib/petal_components/ebin" />
+      <root url="file://$PROJECT_DIR$/_build/dev/lib/petal_components/ebin" />
+      <root url="file://$PROJECT_DIR$/_build/dev/lib/petal_components/ebin" />
+      <root url="file://$PROJECT_DIR$/_build/dev/lib/petal_components/ebin" />
+      <root url="file://$PROJECT_DIR$/_build/dev/lib/petal_components/ebin" />
+      <root url="file://$PROJECT_DIR$/_build/dev/lib/petal_components/ebin" />
+      <root url="file://$PROJECT_DIR$/_build/dev/lib/petal_components/ebin" />
+      <root url="file://$PROJECT_DIR$/_build/dev/lib/petal_components/ebin" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/deps/petal_components/lib" />
+      <root url="file://$PROJECT_DIR$/deps/petal_components/priv" />
+      <root url="file://$PROJECT_DIR$/deps/petal_components/lib" />
+      <root url="file://$PROJECT_DIR$/deps/petal_components/priv" />
+      <root url="file://$PROJECT_DIR$/deps/petal_components/lib" />
+      <root url="file://$PROJECT_DIR$/deps/petal_components/priv" />
+      <root url="file://$PROJECT_DIR$/deps/petal_components/lib" />
+      <root url="file://$PROJECT_DIR$/deps/petal_components/priv" />
+      <root url="file://$PROJECT_DIR$/deps/petal_components/lib" />
+      <root url="file://$PROJECT_DIR$/deps/petal_components/priv" />
+      <root url="file://$PROJECT_DIR$/deps/petal_components/lib" />
+      <root url="file://$PROJECT_DIR$/deps/petal_components/priv" />
+      <root url="file://$PROJECT_DIR$/deps/petal_components/lib" />
+      <root url="file://$PROJECT_DIR$/deps/petal_components/priv" />
+      <root url="file://$PROJECT_DIR$/deps/petal_components/lib" />
+      <root url="file://$PROJECT_DIR$/deps/petal_components/priv" />
+    </SOURCES>
+  </library>
+</component>

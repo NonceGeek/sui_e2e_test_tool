@@ -1,0 +1,27 @@
+<component name="libraryTable">
+  <library name="ex_unit_release" type="mix">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/_build/dev/lib/ex_unit_release/ebin" />
+      <root url="file://$PROJECT_DIR$/_build/dev/lib/ex_unit_release/ebin" />
+      <root url="file://$PROJECT_DIR$/_build/dev/lib/ex_unit_release/ebin" />
+      <root url="file://$PROJECT_DIR$/_build/dev/lib/ex_unit_release/ebin" />
+      <root url="file://$PROJECT_DIR$/_build/dev/lib/ex_unit_release/ebin" />
+      <root url="file://$PROJECT_DIR$/_build/dev/lib/ex_unit_release/ebin" />
+      <root url="file://$PROJECT_DIR$/_build/dev/lib/ex_unit_release/ebin" />
+      <root url="file://$PROJECT_DIR$/_build/dev/lib/ex_unit_release/ebin" />
+      <root url="file://$PROJECT_DIR$/_build/dev/lib/ex_unit_release/ebin" />
+      <root url="file://$PROJECT_DIR$/_build/dev/lib/ex_unit_release/ebin" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/deps/ex_unit_release/lib" />
+      <root url="file://$PROJECT_DIR$/deps/ex_unit_release/lib" />
+      <root url="file://$PROJECT_DIR$/deps/ex_unit_release/lib" />
+      <root url="file://$PROJECT_DIR$/deps/ex_unit_release/lib" />
+      <root url="file://$PROJECT_DIR$/deps/ex_unit_release/lib" />
+      <root url="file://$PROJECT_DIR$/deps/ex_unit_release/lib" />
+      <root url="file://$PROJECT_DIR$/deps/ex_unit_release/lib" />
+      <root url="file://$PROJECT_DIR$/deps/ex_unit_release/lib" />
+    </SOURCES>
+  </library>
+</component>
