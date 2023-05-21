@@ -1,6 +1,8 @@
-# MoveE2ETestTool
+# SuiE2ETestTool
 
-**TODO: Add description**
+See Aptos version in:
+
+> https://github.com/NonceGeek/aptos_e2e_test_tool
 
 ## Installation
 
