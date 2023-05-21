@@ -29,7 +29,7 @@ parse_code(CodeLine) ->
     #{<<"cli">> => <<"code">>, <<"line">> => erlang:list_to_binary(CodeLine)}.
 
 parse_sui(SuiLine) ->
- {match, List} = re:run(SuiLine, "[0-9a-zA-Z_-]+",[global,{capture,all,binary}]),
+ {match, List} = re:run(SuiLine, "[0-9a-zA-Z_\\-\\+/]+",[global,{capture,all,binary}]),
  [_Sui, _Client, Method | Rest] = lists:flatten(List),
  parse_sui(Method, Rest).
 parse_sui(Method, Args) when

@@ -1,14 +1,36 @@
 defmodule MoveE2ETestToolTest do
+  require Logger
   use ExUnit.Case
-  doctest MoveE2ETestTool
+
+  test "move call" do
+    cmd = %{
+      "args" => [
+        "0x1e52e73d3ee211cc90e81d495ce2890dd2e2cddfe60856f8689c174fd304bf85",
+        "0xfc7319ac27c323e57bd7f4875b79bc66d7b0dc12eaf7c45d0bef6a17a1db2dd3"
+      ],
+      "cli" => "sui_client",
+      "cmd" => "call",
+      "function" => ["buy_bread"],
+      "gas-budget" => ["30000"],
+      "module" => ["sandwich"],
+      "package" => ["0x2a1eb129432e6ce76e8aac65ba1e672ad9c5ceb203c3483ee2628506db46ea7c"]
+    }
+
+    {:ok, client} = Web3MoveEx.Sui.RPC.connect(:devnet)
+    acct = Web3MoveEx.Sui.Account.from("AKpjfApmHx8FbjrRRSrUlF6ITigjP8NMS1ip4JdqPp5g")
+    {:ok, agent} = Agent.start(fn -> %{client: client, acct: acct} end)
+    res = MoveE2ETestTool.CliParser.cmd(agent, cmd)
+    assert res == :ok
+  end
 
   test "runtime compile" do
     Code.eval_string("defmodule A do\ndef a do\n1\nend\nend")
     assert 1 = A.a()
   end
-    test "generate code" do
-        assert 1 = MoveE2ETestTool.CliParser.run("a=1\nassert a=1\n1")
-        new_address = "
+
+  test "generate code" do
+    assert 1 = MoveE2ETestTool.CliParser.run("a=1\nassert a=1\n1")
+    new_address = "
         LOG=DEBUG
         sui client new-address
         expect = %{cli: :sui_client, cmd: :new_address}
@@ -19,8 +41,8 @@ defmodule MoveE2ETestToolTest do
         IO.inspect(res)
         :ok
         "
-        assert :ok == MoveE2ETestTool.CliParser.run(new_address)
-   end
+    assert :ok == MoveE2ETestTool.CliParser.run(new_address)
+  end
 
   test "parse script" do
     assert [
@@ -62,8 +84,7 @@ defmodule MoveE2ETestToolTest do
              %{cli: :comment, line: "    # check if there is a ham"},
              %{cli: :code, line: "    a=a"},
              %{cli: :code, line: "    #"}
-           ] =
-             MoveE2ETestTool.SuiCliParser.parse_script_to_clis(script())
+           ] = MoveE2ETestTool.SuiCliParser.parse_script_to_clis(script())
   end
 
   test "sui client import_address" do
@@ -71,12 +92,13 @@ defmodule MoveE2ETestToolTest do
              cli: :sui_client,
              cmd: :"import-address",
              args: [
-               "AKpjfApmHx8FbjrRRSrUlF6ITigjP8NMS1ip4JdqPp5g",
-               "AKpjfApmHx8FbjrRRSrUlF6ITigjP8NMS1ip4JdqPp5g"
+               "AMSs6F3/uRvzqCXXinpSQLpn+d5wH8lWlN2w1a2T7XCW",
+               "--profile",
+               "leeduckgo"
              ]
            } =
              MoveE2ETestTool.SuiCliParser.parse_cmd(
-               "sui client import-address AKpjfApmHx8FbjrRRSrUlF6ITigjP8NMS1ip4JdqPp5g AKpjfApmHx8FbjrRRSrUlF6ITigjP8NMS1ip4JdqPp5g"
+               "sui client import-address AMSs6F3/uRvzqCXXinpSQLpn+d5wH8lWlN2w1a2T7XCW --profile leeduckgo"
              )
   end
 

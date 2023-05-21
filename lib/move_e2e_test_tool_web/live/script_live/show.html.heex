@@ -15,7 +15,12 @@
 
 <.back navigate={~p"/scripts"}>Back to scripts</.back>
 
-<.modal :if={@live_action == :edit} id="script-modal" show on_cancel={JS.patch(~p"/scripts/#{@script}")}>
+<.modal
+  :if={@live_action == :edit}
+  id="script-modal"
+  show
+  on_cancel={JS.patch(~p"/scripts/#{@script}")}
+>
   <.live_component
     module={MoveE2eTestToolWeb.ScriptLive.FormComponent}
     id={@script.id}

@@ -15,9 +15,19 @@
       <root url="file://$PROJECT_DIR$/_build/dev/lib/nimble_options/ebin" />
       <root url="file://$PROJECT_DIR$/_build/dev/lib/nimble_options/ebin" />
       <root url="file://$PROJECT_DIR$/_build/dev/lib/nimble_options/ebin" />
+      <root url="file://$PROJECT_DIR$/_build/dev/lib/nimble_options/ebin" />
+      <root url="file://$PROJECT_DIR$/_build/test/lib/nimble_options/ebin" />
+      <root url="file://$PROJECT_DIR$/_build/dev/lib/nimble_options/ebin" />
+      <root url="file://$PROJECT_DIR$/_build/test/lib/nimble_options/ebin" />
+      <root url="file://$PROJECT_DIR$/_build/dev/lib/nimble_options/ebin" />
+      <root url="file://$PROJECT_DIR$/_build/test/lib/nimble_options/ebin" />
+      <root url="file://$PROJECT_DIR$/_build/dev/lib/nimble_options/ebin" />
+      <root url="file://$PROJECT_DIR$/_build/test/lib/nimble_options/ebin" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
+      <root url="file://$PROJECT_DIR$/deps/nimble_options/lib" />
+      <root url="file://$PROJECT_DIR$/deps/nimble_options/lib" />
       <root url="file://$PROJECT_DIR$/deps/nimble_options/lib" />
       <root url="file://$PROJECT_DIR$/deps/nimble_options/lib" />
       <root url="file://$PROJECT_DIR$/deps/nimble_options/lib" />

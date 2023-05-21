@@ -36,6 +36,7 @@ defmodule MoveE2eTestTool.Scripts do
 
   """
   def get_script!(id), do: Repo.get!(Script, id)
+  def get_script(id), do: Repo.get(Script, id)
 
   @doc """
   Gets a script by name.
@@ -52,6 +53,7 @@ defmodule MoveE2eTestTool.Scripts do
   def get_script_by_name(name) when is_binary(name) do
     Repo.get_by(Script, name: name)
   end
+
   @doc """
   Creates a script.
 

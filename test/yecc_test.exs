@@ -31,7 +31,9 @@ defmodule YeccTest do
         cli: :sui_client,
         cmd: :"transfer-sui",
         "gas-budget": ["2000"],
-        "sui-coin-object-id": ["0x3a5f70f0bedb661f1e8bc596e308317edb0bdccc5bc86207b45f01db1aad5ddf"],
+        "sui-coin-object-id": [
+          "0x3a5f70f0bedb661f1e8bc596e308317edb0bdccc5bc86207b45f01db1aad5ddf"
+        ],
         to: ["0x313c133acaf25103aae40544003195e1a3bb7d5b2b11fd4c6ec61af16bcdb968"]
       },
       %{
@@ -54,8 +56,7 @@ defmodule YeccTest do
       %{cli: :code, line: "  b"},
       %{cli: :code, line: "assert a == 1"},
       %{args: ["e2519r"], cli: :sui_client, cmd: :"new-address"}
-    ]
-    )
+    ])
   end
 
   def check_sui(str, expected) do

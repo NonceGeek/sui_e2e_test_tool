@@ -20,7 +20,9 @@ defmodule MoveE2ETestTool.SuiCliParser do
     code = :re.replace(code, "%{inspect", "\#{inspect", [:global, {:return, :binary}])
 
     code =
-      "defmodule MoveE2ETestTool." <> module <> " do\nuse ExUnit.Case\ndef run(agent) do\n:persistent_term.put(:log,:nil)\n" <>
+      "defmodule MoveE2ETestTool." <>
+        module <>
+        " do\nuse ExUnit.Case\ndef run(agent) do\n:persistent_term.put(:log,:nil)\n" <>
         code <>
         "\nend\ndef ignore_warn(_res), do: :ok \n" <> debug() <> "\nend"
 
@@ -35,17 +37,21 @@ defmodule MoveE2ETestTool.SuiCliParser do
   defp reset_value("cli", v), do: String.to_atom(v)
   defp reset_value("cmd", v), do: String.to_atom(v)
   defp reset_value(_, v), do: v
+
   defp debug() do
     "
+    def cmd(agent, cmd) do
+      MoveE2ETestTool.CliParser.cmd(agent,cmd)
+    end
     def debug(cmd, res) do
+    Phoenix.PubSub.broadcast(MoveE2eTestTool.PubSub, \"task\", {:append_log, \"\#{inspect(cmd)} => \#{inspect(res)}\"})
     case :persistent_term.get(:log) do
         :debug ->
-              IO.puts(IO.ANSI.format([:blue, \"===> \#{inspect(cmd)}\"]))
-              IO.puts(IO.ANSI.format([:green, \".... \#{inspect(res, pretty: true)}\n\n\"]))
+          IO.puts(IO.ANSI.format([:blue, \"\#{inspect(cmd)} => \#{inspect(res)}\"]))
          :ok
         :nil -> :ignore
     end
     end
     "
-    end
+  end
 end

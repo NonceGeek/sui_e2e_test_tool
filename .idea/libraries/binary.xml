@@ -11,9 +11,20 @@
       <root url="file://$PROJECT_DIR$/_build/dev/lib/binary/ebin" />
       <root url="file://$PROJECT_DIR$/_build/dev/lib/binary/ebin" />
       <root url="file://$PROJECT_DIR$/_build/dev/lib/binary/ebin" />
+      <root url="file://$PROJECT_DIR$/_build/dev/lib/binary/ebin" />
+      <root url="file://$PROJECT_DIR$/_build/dev/lib/binary/ebin" />
+      <root url="file://$PROJECT_DIR$/_build/dev/lib/binary/ebin" />
+      <root url="file://$PROJECT_DIR$/_build/dev/lib/binary/ebin" />
+      <root url="file://$PROJECT_DIR$/_build/dev/lib/binary/ebin" />
+      <root url="file://$PROJECT_DIR$/_build/test/lib/binary/ebin" />
+      <root url="file://$PROJECT_DIR$/_build/dev/lib/binary/ebin" />
+      <root url="file://$PROJECT_DIR$/_build/test/lib/binary/ebin" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
+      <root url="file://$PROJECT_DIR$/deps/binary/lib" />
+      <root url="file://$PROJECT_DIR$/deps/binary/lib" />
+      <root url="file://$PROJECT_DIR$/deps/binary/lib" />
       <root url="file://$PROJECT_DIR$/deps/binary/lib" />
       <root url="file://$PROJECT_DIR$/deps/binary/lib" />
       <root url="file://$PROJECT_DIR$/deps/binary/lib" />
