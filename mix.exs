@@ -9,7 +9,11 @@ defmodule MoveE2eTestTool.MixProject do
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
-      deps: deps()
+      deps: deps(),
+      releases: [
+        aptos_e2e_test_tool: [
+          steps: [:assemble] ++ ex_unit_release()
+        ]]
     ]
   end
 
@@ -62,7 +66,7 @@ defmodule MoveE2eTestTool.MixProject do
       {:sui, git: "https://github.com/yangcancai/sui.git", branch: "main", override: true}
     ]
   end
-
+  defp ex_unit_release(),do: [&ExUnitRelease.include/1]
   # Aliases are shortcuts or tasks specific to the current project.
   # For example, to install project dependencies and perform other setup tasks, run:
   #
