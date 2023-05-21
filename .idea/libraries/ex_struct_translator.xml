@@ -1,0 +1,38 @@
+<component name="libraryTable">
+  <library name="ex_struct_translator" type="mix">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/_build/dev/lib/ex_struct_translator/ebin" />
+      <root url="file://$PROJECT_DIR$/_build/dev/lib/ex_struct_translator/ebin" />
+      <root url="file://$PROJECT_DIR$/_build/dev/lib/ex_struct_translator/ebin" />
+      <root url="file://$PROJECT_DIR$/_build/dev/lib/ex_struct_translator/ebin" />
+      <root url="file://$PROJECT_DIR$/_build/dev/lib/ex_struct_translator/ebin" />
+      <root url="file://$PROJECT_DIR$/_build/dev/lib/ex_struct_translator/ebin" />
+      <root url="file://$PROJECT_DIR$/_build/dev/lib/ex_struct_translator/ebin" />
+      <root url="file://$PROJECT_DIR$/_build/dev/lib/ex_struct_translator/ebin" />
+      <root url="file://$PROJECT_DIR$/_build/dev/lib/ex_struct_translator/ebin" />
+      <root url="file://$PROJECT_DIR$/_build/dev/lib/ex_struct_translator/ebin" />
+      <root url="file://$PROJECT_DIR$/_build/dev/lib/ex_struct_translator/ebin" />
+      <root url="file://$PROJECT_DIR$/_build/dev/lib/ex_struct_translator/ebin" />
+      <root url="file://$PROJECT_DIR$/_build/dev/lib/ex_struct_translator/ebin" />
+      <root url="file://$PROJECT_DIR$/_build/dev/lib/ex_struct_translator/ebin" />
+      <root url="file://$PROJECT_DIR$/_build/dev/lib/ex_struct_translator/ebin" />
+      <root url="file://$PROJECT_DIR$/_build/test/lib/ex_struct_translator/ebin" />
+      <root url="file://$PROJECT_DIR$/_build/dev/lib/ex_struct_translator/ebin" />
+      <root url="file://$PROJECT_DIR$/_build/test/lib/ex_struct_translator/ebin" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/deps/ex_struct_translator/lib" />
+      <root url="file://$PROJECT_DIR$/deps/ex_struct_translator/lib" />
+      <root url="file://$PROJECT_DIR$/deps/ex_struct_translator/lib" />
+      <root url="file://$PROJECT_DIR$/deps/ex_struct_translator/lib" />
+      <root url="file://$PROJECT_DIR$/deps/ex_struct_translator/lib" />
+      <root url="file://$PROJECT_DIR$/deps/ex_struct_translator/lib" />
+      <root url="file://$PROJECT_DIR$/deps/ex_struct_translator/lib" />
+      <root url="file://$PROJECT_DIR$/deps/ex_struct_translator/lib" />
+      <root url="file://$PROJECT_DIR$/deps/ex_struct_translator/lib" />
+      <root url="file://$PROJECT_DIR$/deps/ex_struct_translator/lib" />
+      <root url="file://$PROJECT_DIR$/deps/ex_struct_translator/lib" />
+    </SOURCES>
+  </library>
+</component>

@@ -1,6 +1,7 @@
 defmodule MoveE2ETestTool.CliParser do
   alias Web3MoveEx.Sui
   alias MoveE2ETestTool.SuiCliParser
+
   @moduledoc """
   """
   def main(["--file", file]) do
@@ -8,18 +9,19 @@ defmodule MoveE2ETestTool.CliParser do
     {:ok, _} = Application.ensure_all_started(:web3_move_ex)
     run(script, file)
   end
+
   def run(script, file \\ "tmp.script") do
     m = file_to_module(file)
     code = SuiCliParser.parse_script_to_code(script, m)
     :ok = :file.write_file(:filename.rootname(file) <> ".ex", code)
     Code.eval_string(code)
-    {:ok, agent} = start()
+    {:ok, agent} = start(:devnet)
     apply(String.to_atom("Elixir.MoveE2ETestTool." <> m), :run, [agent])
   end
 
-  def start() do
-    {:ok, client} = Sui.RPC.connect()
-    Agent.start_link(fn -> %{client: client} end)
+  def start(network_type) when is_atom(network_type) do
+    {:ok, client} = Sui.RPC.connect(network_type)
+    Agent.start_link(fn -> %{client: client, network: network_type} end)
   end
 
   def start(client) do
@@ -28,21 +30,21 @@ defmodule MoveE2ETestTool.CliParser do
 
   def cmd(agent, %{"cli" => "sui_client", "cmd" => "new-address", "args" => [key_schema | _]}) do
     {:ok, acct} = Web3MoveEx.Sui.gen_acct(String.to_atom(key_schema))
-#    {:ok, acct} =
-#      {:ok,
-#       %Web3MoveEx.Sui.Account{
-#         sui_address:
-#           <<173, 247, 138, 113, 25, 16, 185, 209, 222, 3, 2, 38, 31, 18, 48, 156, 136, 2, 245,
-#             243, 0, 205, 170, 16, 200, 119, 17, 120, 234, 150, 208, 145>>,
-#         sui_address_hex: "0xadf78a711910b9d1de0302261f12309c8802f5f300cdaa10c8771178ea96d091",
-#         priv_key:
-#           <<0, 11, 166, 31, 134, 41, 92, 19, 157, 130, 92, 13, 61, 169, 69, 25, 184, 250, 110,
-#             217, 83, 192, 231, 128, 112, 2, 108, 115, 39, 229, 224, 14, 7>>,
-#         priv_key_base64: "AAumH4YpXBOdglwNPalFGbj6btlTwOeAcAJscyfl4A4H",
-#         key_schema: "ed25519",
-#         phrase:
-#           "city record reject glow similar misery finger tongue wage diesel high prevent end gadget pill tiny shine muffin prefer coffee custom shell quantum office"
-#       }}
+    #    {:ok, acct} =
+    #      {:ok,
+    #       %Web3MoveEx.Sui.Account{
+    #         sui_address:
+    #           <<173, 247, 138, 113, 25, 16, 185, 209, 222, 3, 2, 38, 31, 18, 48, 156, 136, 2, 245,
+    #             243, 0, 205, 170, 16, 200, 119, 17, 120, 234, 150, 208, 145>>,
+    #         sui_address_hex: "0xadf78a711910b9d1de0302261f12309c8802f5f300cdaa10c8771178ea96d091",
+    #         priv_key:
+    #           <<0, 11, 166, 31, 134, 41, 92, 19, 157, 130, 92, 13, 61, 169, 69, 25, 184, 250, 110,
+    #             217, 83, 192, 231, 128, 112, 2, 108, 115, 39, 229, 224, 14, 7>>,
+    #         priv_key_base64: "AAumH4YpXBOdglwNPalFGbj6btlTwOeAcAJscyfl4A4H",
+    #         key_schema: "ed25519",
+    #         phrase:
+    #           "city record reject glow similar misery finger tongue wage diesel high prevent end gadget pill tiny shine muffin prefer coffee custom shell quantum office"
+    #       }}
 
     Agent.update(agent, fn dict ->
       Map.put(dict, :acct, acct)
@@ -72,7 +74,13 @@ defmodule MoveE2ETestTool.CliParser do
         "gas-budget" => [gas_budget]
       }) do
     %{client: client, acct: acct} = Agent.get(agent, fn state -> state end)
-    client |> Sui.move_call(acct, package, module, function, [], args, gas, gas_budget)
+    try do
+    case client |> Sui.move_call(acct, package, module, function, [], args, gas_budget, gas) do
+      {:ok, _} -> :ok
+      rs -> rs
+    end
+    catch r,x-> {r, x}
+    end
   end
 
   def cmd(
@@ -103,30 +111,131 @@ defmodule MoveE2ETestTool.CliParser do
     %{client: client, acct: acct} = Agent.get(agent, fn state -> state end)
     Sui.unsafe_transfer(client, acct, sui_coin_object_id, gas_budget, to)
   end
+
   def cmd(agent, %{
-  "cli" => "sui_client",
-  "cmd" => "import-address",
-  "args" => args
-  }) do
-   addresses = args |> Enum.map(fn x -> Web3MoveEx.Sui.Account.from(x)  end)
-   Agent.update(agent, fn dict ->
-      Map.put(dict, :addresses, addresses)
-      Map.put(dict, :acc, :erlang.hd(addresses))
+        "cli" => "sui_client",
+        "cmd" => "import-address",
+        "args" => [address, "--profile", name]
+      }) do
+    acc = Web3MoveEx.Sui.Account.from(address)
+
+    Agent.update(agent, fn state ->
+      state1 = Map.put(state, :address, address)
+      state2 = Map.put(state1, :acct, acc)
+      Map.put(state2, :profile, name)
     end)
   end
+
+  def cmd(agent, %{"cli" => "comment", "line" => "# ex-script: set-network testnet"}) do
+    Agent.update(agent, fn state ->
+      {:ok, client} = Sui.RPC.connect(:testnet)
+      state1 = Map.put(state, :client, client)
+      Map.put(state1, :network, :testnet)
+    end)
+  end
+
+  def cmd(agent, %{"cli" => "comment", "line" => "# ex-script: set-network devnet"}) do
+    Agent.update(agent, fn state ->
+      {:ok, client} = Sui.RPC.connect("https://fullnode.devnet.sui.io")
+      state1 = Map.put(state, :client, client)
+      Map.put(state1, :network, :devnet)
+    end)
+  end
+
+  def cmd(agent, %{"cli" => "comment", "line" => "# ex-script: set-network mainnet"}) do
+    Agent.update(agent, fn state ->
+      {:ok, client} = Sui.RPC.connect(:mainnet)
+      state1 = Map.put(state, :client, client)
+      Map.put(state1, :network, :mainnet)
+    end)
+  end
+
+  def cmd(agent, %{"cli" => "comment", "line" => "# ex-script: sleep 2s"}) do
+    :timer.sleep(2000)
+  end
+
+  def cmd(agent, {:bread_counts, contract_addr}) do
+    %{client: client, acct: %{sui_address_hex: sui} = acct} =
+      Agent.get(agent, fn state -> state end)
+
+    {:ok, %{data: data}} =
+      Sui.RPC.call(client, "suix_getOwnedObjects", [
+        sui,
+        %{
+          "filter" => %{
+            "MatchAll" => [
+              %{
+                "StructType" => "#{contract_addr}::sandwich::Bread"
+              }
+            ]
+          },
+          "options" => %{
+            "showType" => true,
+            "showOwner" => true,
+            "showPreviousTransaction" => true,
+            "showDisplay" => false,
+            "showContent" => true,
+            "showBcs" => false,
+            "showStorageRebate" => true
+          }
+        },
+        nil,
+        50
+      ])
+    Kernel.length(data)
+  end
+
+  def cmd(agent, {:ham_counts, contract_addr}) do
+    %{client: client, acct: %{sui_address_hex: sui} = acct} =
+      Agent.get(agent, fn state -> state end)
+
+    {:ok, %{data: data}} =
+      Sui.RPC.call(client, "suix_getOwnedObjects", [
+        sui,
+        %{
+          "filter" => %{
+            "MatchAll" => [
+              %{
+                "StructType" => "#{contract_addr}::sandwich::Ham"
+              }
+            ]
+          },
+          "options" => %{
+            "showType" => true,
+            "showOwner" => true,
+            "showPreviousTransaction" => true,
+            "showDisplay" => false,
+            "showContent" => true,
+            "showBcs" => false,
+            "showStorageRebate" => true
+          }
+        },
+        nil,
+        50
+      ])
+    Kernel.length(data)
+  end
+
+
+  def cmd(agent, %{"cli" => "comment", "line" => line}) do
+    :ok
+  end
+
   defp file_to_module(file) when is_binary(file) do
     name = :filename.rootname(file)
-     [a|rest] = name1 = to_charlist(name)
-     String.upcase(List.to_string([a])) <> change_module(rest, "")
-    end
+    [a | rest] = name1 = to_charlist(name)
+    String.upcase(List.to_string([a])) <> change_module(rest, "")
+  end
 
   defp change_module([], acc) do
     acc
-    end
-    defp change_module([?_, f| rest], acc) do
-        change_module(rest, acc <> String.upcase(List.to_string([f])))
-    end
-    defp change_module([f| rest], acc) do
+  end
+
+  defp change_module([?_, f | rest], acc) do
+    change_module(rest, acc <> String.upcase(List.to_string([f])))
+  end
+
+  defp change_module([f | rest], acc) do
     change_module(rest, acc <> List.to_string([f]))
-    end
+  end
 end
