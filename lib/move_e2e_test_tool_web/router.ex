@@ -17,13 +17,13 @@ defmodule MoveE2eTestToolWeb.Router do
   scope "/", MoveE2eTestToolWeb do
     pipe_through :browser
 
-    get "/", PageController, :home
-    live "/scripts", ScriptLive.Index, :index
-    live "/scripts/new", ScriptLive.Index, :new
-    live "/scripts/:id/edit", ScriptLive.Index, :edit
-
-    live "/scripts/:id", ScriptLive.Show, :show
-    live "/scripts/:id/show/edit", ScriptLive.Show, :edit
+#    get "/", PageController, :home
+    live "/", ScriptLive.Index, :index
+#    live "/scripts/new", ScriptLive.Index, :new
+#    live "/scripts/:id/edit", ScriptLive.Index, :edit
+#
+#    live "/scripts/:id", ScriptLive.Show, :show
+#    live "/scripts/:id/show/edit", ScriptLive.Show, :edit
 
   end
 
