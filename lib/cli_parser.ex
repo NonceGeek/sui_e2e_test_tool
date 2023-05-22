@@ -128,7 +128,7 @@ defmodule MoveE2ETestTool.CliParser do
 
   def cmd(agent, %{"cli" => "comment", "line" => "# ex-script: set-network testnet"}) do
     Agent.update(agent, fn state ->
-      {:ok, client} = Sui.RPC.connect(:testnet)
+      {:ok, client} = Sui.RPC.connect("https://fullnode.testnet.sui.io")
       state1 = Map.put(state, :client, client)
       Map.put(state1, :network, :testnet)
     end)
@@ -144,7 +144,7 @@ defmodule MoveE2ETestTool.CliParser do
 
   def cmd(agent, %{"cli" => "comment", "line" => "# ex-script: set-network mainnet"}) do
     Agent.update(agent, fn state ->
-      {:ok, client} = Sui.RPC.connect(:mainnet)
+      {:ok, client} = Sui.RPC.connect("https://fullnode.mainnet.sui.io")
       state1 = Map.put(state, :client, client)
       Map.put(state1, :network, :mainnet)
     end)
